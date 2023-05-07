@@ -1,0 +1,14 @@
+@charset "ISO-8859-1";
+
+title {
+	color: aquamarine;
+}
+
+h1 {
+	text-align: center;
+	color: cornflowerblue;
+}
+
+br {
+	clear: both;
+}
