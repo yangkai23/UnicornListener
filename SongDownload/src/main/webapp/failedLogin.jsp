@@ -7,6 +7,6 @@
 <title>JSP</title>
 </head>
 <body>
-	<h1 style="color:green">Welcome ${firstName}</h1>
+	<h1 style="color: red">Login Failed</h1>
 </body>
 </html>

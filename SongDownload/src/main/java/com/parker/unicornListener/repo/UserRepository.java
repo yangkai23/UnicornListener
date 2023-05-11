@@ -42,7 +42,6 @@ public final class UserRepository {
 			UserRepository.email = email;
 			User user = User.getInstance();
 			if (resultSet.next()) {
-				System.out.println("Hi");
 				if (password.contentEquals(resultSet.getString(3))) {
 					user.setEmail(resultSet.getString(2));
 					user.setPassword(resultSet.getString(3));
