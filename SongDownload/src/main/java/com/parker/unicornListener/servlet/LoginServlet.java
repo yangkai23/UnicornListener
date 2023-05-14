@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.servlet.RequestDispatcher;
 //import javax.servlet.GenericServlet;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -29,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		System.out.println(config.getServletContext().getServletContextName());
+//		System.out.println(config.getServletContext().getServletContextName());
 		System.out.println("LoginServlet init");
 		super.init(config);
 	}
@@ -43,37 +44,24 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		ServletConfig servletConfig = getServletConfig();
+		String servletName = servletConfig.getServletName();
+		log("Servlet Name : " + servletName);
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-//		PrintWriter printWriter = response.getWriter();
-		boolean isValid = UserRepository.isValidUser(email, password);
+		log("Current User : " + email);
+		boolean isValid = UserRepository.isValidUser(email, password, this);
 		Optional<User> optionalUser;
 		if (isValid)
 			optionalUser = UserRepository.getUser();
 		else
 			optionalUser = Optional.empty();
-		/*
-		 * printWriter.write( "<!DOCTYPE html>\r\n" + "<html lang=\"en\">\r\n" +
-		 * "<head>\r\n" + "    <meta charset=\"UTF-8\">\r\n" +
-		 * "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n" +
-		 * "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n"
-		 * + "    <title>Document</title>\r\n" + "</head>\r\n" + "<body>\r\n" +
-		 * "    <h1 style=\"color: darkslategrey;\">Welcome " + user.getFirstName() +
-		 * "</h1>\r\n" + "</body>\r\n" + "</html>"); } else { printWriter.write(
-		 * "<!DOCTYPE html>\r\n" + "<html lang=\"en\">\r\n" + "<head>\r\n" +
-		 * "    <meta charset=\"UTF-8\">\r\n" +
-		 * "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n" +
-		 * "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n"
-		 * + "    <title>Document</title>\r\n" + "</head>\r\n" + "<body>\r\n" +
-		 * "    <h1 style=\"color: crimson;\">Please check the credentials</h1>\r\n" +
-		 * "</body>\r\n" + "</html>");
-		 */
-		String url;
-		if (optionalUser.isPresent()) {
-			url = "/SuccessLogin.jsp";
-			request.setAttribute("firstName", optionalUser.get().getFirstName());
-		} else
-			url = "/failedLogin.jsp";
+		String projName = getServletContext().getInitParameter("projectName");
+		String url = "/SuccessLogin.jsp";
+		request.setAttribute("projectName", projName);
+		request.setAttribute("user", optionalUser.orElseGet(() -> null));
+		log("Redirecting to ..." + url.substring(1));
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 

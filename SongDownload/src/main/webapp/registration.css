@@ -1,0 +1,14 @@
+#form {
+    justify-content: center;
+    display: flex;
+    margin: 40px 50px;
+   background-image:"\servletTest\pics\images.jpg" ;
+    padding: 30px;
+}
+
+#loginLink {
+    text-align: center;
+}
+h1{
+    text-align: center;
+}
