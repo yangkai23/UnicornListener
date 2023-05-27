@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listener Registration</title>
+<link rel="stylesheet" href="/registration.css">
+</head>
+
+<body>
+	<h1>Listener Registration</h1>
+	<div id="form">
+		<form action="register" method="post">
+			<table>
+
+				<tr>
+					<td><label for="firstName">First Name </label></td>
+					<td><input type="text" id="firstName" name="firstName"
+						required /></td>
+
+				</tr>
+				<tr>
+					<td><label for="lastName">Last Name </label></td>
+					<td><input type="text" id="lastName" name="lastName" required /></td>
+				</tr>
+				<tr>
+					<td><label for="email">Email </label></td>
+					<td><input type="email" id="email" name="email"
+						pattern="[\w_.]{5,}(@)[\w]{2,10}\.(com|net|in|edu|org)" required /></td>
+				</tr>
+				<tr>
+					<td><label for="password">Password</label></td>
+					<td><input type="password" id="password" minlength="5"
+						name="password" maxlength="10" required /></td>
+				</tr>
+				<tr>
+					<td><input type="submit" name="RegistrationSubmit"
+						value="submit"></td>
+				</tr>
+				<tr>
+					<td>
+						<div id="loginLink">
+							<p>Already a user?</p>
+							<a href="index.html">login here</a>
+						</div>
+					</td>
+				</tr>
+
+
+			</table>
+		</form>
+	</div>
+
+</body>
+
+</html>

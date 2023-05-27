@@ -4,15 +4,18 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class User implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String email;
 	private String password;
 	private String firstName;
 	private String lastName;
+
+	public User() {
+		this.email = "";
+		this.password = "";
+		this.firstName = "";
+		this.lastName = "";
+	}
 
 	public String getFirstName() {
 		return firstName;
