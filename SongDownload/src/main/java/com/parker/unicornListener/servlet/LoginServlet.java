@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,9 +54,13 @@ public class LoginServlet extends HttpServlet {
 		log("Current User : " + email);
 		boolean isValid = UserRepository.isValidUser(email, password, this);
 		Optional<User> optionalUser;
-		if (isValid)
+		if (isValid) {
 			optionalUser = UserRepository.getUser();
-		else
+			Cookie emailCookie = new Cookie("email", email);
+			Cookie passCookie = new Cookie("pass", password);
+			response.addCookie(passCookie);
+			response.addCookie(emailCookie);
+		} else
 			optionalUser = Optional.empty();
 		String projName = getServletContext().getInitParameter("projectName");
 		String url = "/SuccessLogin.jsp";
