@@ -5,15 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
 import javax.servlet.GenericServlet;
-import javax.servlet.http.HttpServlet;
 
 import com.parker.unicornListener.dto.User;
-import com.parker.unicornListener.servlet.LoginServlet;
-import com.parker.unicornListener.servlet.RegistrationServlet;
 
 public final class UserRepository {
 
@@ -101,7 +97,7 @@ public final class UserRepository {
 			preparedStatement1.setString(4, lastName);
 			servlet.log("Values has set for Place Holder");
 			servlet.log("user getting Inserted");
-			if (!exists(email)) {
+			if (exists(email)) {
 				int impactedRows = preparedStatement1.executeUpdate();
 				servlet.log("Impacted Rows : " + impactedRows);
 				if (impactedRows != 0) {
